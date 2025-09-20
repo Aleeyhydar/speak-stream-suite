@@ -8,6 +8,7 @@ import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Upload, Download, Play, Pause, Volume2, Mic } from "lucide-react";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
 
 const Convert = () => {
@@ -253,6 +254,7 @@ const Convert = () => {
           </TabsContent>
         </Tabs>
       </div>
+      <Footer />
     </div>
   );
 };

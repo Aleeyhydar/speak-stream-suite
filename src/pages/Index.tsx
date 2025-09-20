@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { ArrowRight, Mic, Volume2, Zap, Shield, Clock } from "lucide-react";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import SoundWave from "@/components/SoundWave";
 import heroImage from "@/assets/hero-soundwave.jpg";
@@ -156,6 +157,7 @@ const Index = () => {
       </section>
 
       <ContactForm />
+      <Footer />
     </div>
   );
 };
