@@ -103,19 +103,76 @@ const Convert = () => {
 
                   <div className="space-y-4">
                     <div>
-                      <Label className="text-sm font-medium">Voice</Label>
-                      <Select value={voice} onValueChange={setVoice}>
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="aria">Aria (Female, American)</SelectItem>
-                          <SelectItem value="sarah">Sarah (Female, British)</SelectItem>
-                          <SelectItem value="roger">Roger (Male, American)</SelectItem>
-                          <SelectItem value="liam">Liam (Male, Australian)</SelectItem>
-                          <SelectItem value="charlotte">Charlotte (Female, French)</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Label className="text-sm font-medium mb-3 block">Voice Selection</Label>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => setVoice("aria")}
+                          className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
+                            voice === "aria" 
+                              ? "border-primary bg-primary/10 text-primary" 
+                              : "border-border hover:border-primary/50"
+                          }`}
+                        >
+                          <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center">
+                            <span className="text-pink-600 font-semibold text-sm">A</span>
+                          </div>
+                          <div className="text-center">
+                            <div className="font-medium text-xs">Aria</div>
+                            <div className="text-xs text-muted-foreground">US Female</div>
+                          </div>
+                        </button>
+                        
+                        <button
+                          onClick={() => setVoice("sarah")}
+                          className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
+                            voice === "sarah" 
+                              ? "border-primary bg-primary/10 text-primary" 
+                              : "border-border hover:border-primary/50"
+                          }`}
+                        >
+                          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                            <span className="text-blue-600 font-semibold text-sm">S</span>
+                          </div>
+                          <div className="text-center">
+                            <div className="font-medium text-xs">Sarah</div>
+                            <div className="text-xs text-muted-foreground">UK Female</div>
+                          </div>
+                        </button>
+                        
+                        <button
+                          onClick={() => setVoice("roger")}
+                          className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
+                            voice === "roger" 
+                              ? "border-primary bg-primary/10 text-primary" 
+                              : "border-border hover:border-primary/50"
+                          }`}
+                        >
+                          <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                            <span className="text-green-600 font-semibold text-sm">R</span>
+                          </div>
+                          <div className="text-center">
+                            <div className="font-medium text-xs">Roger</div>
+                            <div className="text-xs text-muted-foreground">US Male</div>
+                          </div>
+                        </button>
+                        
+                        <button
+                          onClick={() => setVoice("liam")}
+                          className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
+                            voice === "liam" 
+                              ? "border-primary bg-primary/10 text-primary" 
+                              : "border-border hover:border-primary/50"
+                          }`}
+                        >
+                          <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center">
+                            <span className="text-orange-600 font-semibold text-sm">L</span>
+                          </div>
+                          <div className="text-center">
+                            <div className="font-medium text-xs">Liam</div>
+                            <div className="text-xs text-muted-foreground">AU Male</div>
+                          </div>
+                        </button>
+                      </div>
                     </div>
 
                     <div>
@@ -227,18 +284,42 @@ const Convert = () => {
 
                 <div className="space-y-4">
                   <Label className="text-sm font-medium">Output Language</Label>
-                  <Select defaultValue="en">
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="en">English</SelectItem>
-                      <SelectItem value="es">Spanish</SelectItem>
-                      <SelectItem value="fr">French</SelectItem>
-                      <SelectItem value="de">German</SelectItem>
-                      <SelectItem value="it">Italian</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="grid grid-cols-3 gap-3">
+                    <button className="p-3 rounded-lg border-2 border-primary bg-primary/10 text-primary transition-all flex flex-col items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                        <span className="text-blue-600 font-semibold text-xs">EN</span>
+                      </div>
+                      <div className="text-xs font-medium">English</div>
+                    </button>
+                    
+                    <button className="p-3 rounded-lg border-2 border-border hover:border-primary/50 transition-all flex flex-col items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
+                        <span className="text-red-600 font-semibold text-xs">ES</span>
+                      </div>
+                      <div className="text-xs font-medium">Spanish</div>
+                    </button>
+                    
+                    <button className="p-3 rounded-lg border-2 border-border hover:border-primary/50 transition-all flex flex-col items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+                        <span className="text-purple-600 font-semibold text-xs">FR</span>
+                      </div>
+                      <div className="text-xs font-medium">French</div>
+                    </button>
+                    
+                    <button className="p-3 rounded-lg border-2 border-border hover:border-primary/50 transition-all flex flex-col items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center">
+                        <span className="text-yellow-600 font-semibold text-xs">DE</span>
+                      </div>
+                      <div className="text-xs font-medium">German</div>
+                    </button>
+                    
+                    <button className="p-3 rounded-lg border-2 border-border hover:border-primary/50 transition-all flex flex-col items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                        <span className="text-green-600 font-semibold text-xs">IT</span>
+                      </div>
+                      <div className="text-xs font-medium">Italian</div>
+                    </button>
+                  </div>
                 </div>
 
                 <Button className="btn-hero w-full">
