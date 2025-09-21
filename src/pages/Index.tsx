@@ -7,10 +7,8 @@ import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import SoundWave from "@/components/SoundWave";
 import heroImage from "@/assets/hero-soundwave.jpg";
-
 const Index = () => {
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <Header />
       
       {/* Hero Section */}
@@ -27,7 +25,7 @@ const Index = () => {
                 </div>
                 <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
                   Transform Text to
-                  <span className="block text-gradient">Lifelike Speech</span>
+                  <span className="block text-gradient text-slate-600">Lifelike Speech</span>
                 </h1>
                 <p className="text-xl opacity-90 max-w-lg">
                   The most advanced and affordable voice AI platform. Create natural-sounding speech 
@@ -66,11 +64,7 @@ const Index = () => {
             </div>
             
             <div className="relative">
-              <img 
-                src={heroImage} 
-                alt="Advanced sound wave visualization representing AI voice technology"
-                className="w-full h-auto rounded-2xl shadow-2xl"
-              />
+              <img src={heroImage} alt="Advanced sound wave visualization representing AI voice technology" className="w-full h-auto rounded-2xl shadow-2xl" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl" />
             </div>
           </div>
@@ -158,8 +152,6 @@ const Index = () => {
 
       <ContactForm />
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
