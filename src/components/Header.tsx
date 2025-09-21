@@ -1,9 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { Mic, Volume2 } from "lucide-react";
+import { Mic, Volume2, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { AuthDialog } from "@/components/AuthDialog";
+import { useState } from "react";
 
 const Header = () => {
   const location = useLocation();
+  const { user, signOut } = useAuth();
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   return (
     <header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
@@ -43,13 +52,39 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" className="hidden sm:inline-flex">
-            Sign In
-          </Button>
-          <Button className="btn-hero">
-            Get Started
-          </Button>
+          {user ? (
+            <>
+              <span className="hidden sm:block text-sm text-muted-foreground">
+                {user.email}
+              </span>
+              <Button 
+                variant="ghost" 
+                onClick={handleSignOut}
+                className="hidden sm:inline-flex"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button 
+                variant="ghost" 
+                onClick={() => setShowAuthDialog(true)}
+                className="hidden sm:inline-flex"
+              >
+                Sign In
+              </Button>
+              <Button 
+                className="btn-hero"
+                onClick={() => setShowAuthDialog(true)}
+              >
+                Get Started
+              </Button>
+            </>
+          )}
         </div>
+        <AuthDialog open={showAuthDialog} onOpenChange={setShowAuthDialog} />
       </div>
     </header>
   );
