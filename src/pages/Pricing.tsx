@@ -15,15 +15,17 @@ const Pricing = () => {
       period: "forever",
       description: "Perfect for trying out our platform",
       features: [
-        "5,000 characters per month",
-        "3 voice options",
-        "Standard quality audio",
+        "3,000 characters per session",
+        "1 voice option (Aria)",
+        "Standard quality audio (16kHz)",
+        "MP3 format only",
         "Basic support",
         "Personal use only"
       ],
       limitations: [
+        "No project history access",
         "No commercial use",
-        "Limited voice selection"
+        "Cannot save or re-download projects"
       ],
       cta: "Get Started Free",
       variant: "secondary" as const
@@ -39,6 +41,8 @@ const Pricing = () => {
         "500,000 characters per month",
         "50+ premium voices",
         "High-quality audio (48kHz)",
+        "Multiple formats (MP3, WAV, FLAC)",
+        "Project history & re-download access",
         "Priority support",
         "Commercial use included",
         "Custom voice cloning",
@@ -56,8 +60,11 @@ const Pricing = () => {
       description: "For teams and large-scale applications",
       features: [
         "2,000,000 characters per month",
-        "All premium voices",
-        "Ultra-high quality audio",
+        "All premium voices + custom voices",
+        "Ultra-high quality audio (96kHz)",
+        "All formats + custom formats",
+        "Unlimited project history storage",
+        "Advanced project management tools",
         "Dedicated support manager",
         "Full commercial license",
         "Custom voice development",

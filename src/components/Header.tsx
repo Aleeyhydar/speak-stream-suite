@@ -41,6 +41,16 @@ const Header = () => {
           >
             Convert
           </Link>
+          {user && (
+            <Link
+              to="/projects"
+              className={`font-medium transition-colors hover:text-primary ${
+                location.pathname === "/projects" ? "text-primary" : "text-muted-foreground"
+              }`}
+            >
+              Projects
+            </Link>
+          )}
           <Link
             to="/pricing"
             className={`font-medium transition-colors hover:text-primary ${

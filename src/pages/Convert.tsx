@@ -6,11 +6,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
-import { Upload, Download, Play, Pause, Volume2, Mic } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Upload, Download, Play, Pause, Volume2, Mic, Crown, AlertCircle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { useAuth } from "@/hooks/useAuth";
+import { AuthDialog } from "@/components/AuthDialog";
 
 const Convert = () => {
   const [text, setText] = useState("");
@@ -19,7 +21,23 @@ const Convert = () => {
   const [voice, setVoice] = useState("aria");
   const [speed, setSpeed] = useState([1]);
   const [pitch, setPitch] = useState([0]);
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
+
+  // Usage tracking - in real app this would come from backend
+  const [usedCharacters, setUsedCharacters] = useState(0);
+  const CHARACTER_LIMIT = 3000; // Free users limit
+  
+  // User plan detection - in real app this would come from user profile
+  const getUserPlan = (): "guest" | "free" | "pro" | "business" => {
+    if (!user) return "guest";
+    // For demo purposes, let's simulate a free plan for logged users
+    // In real app, this would come from user's subscription data
+    return "free";
+  };
+  
+  const userPlan = getUserPlan();
 
   const handleGenerate = async () => {
     if (!text.trim()) {
@@ -31,9 +49,28 @@ const Convert = () => {
       return;
     }
 
+    // Check character limit for free/guest users
+    if (userPlan !== "pro" && userPlan !== "business") {
+      if (usedCharacters + text.length > CHARACTER_LIMIT) {
+        toast({
+          title: "Character Limit Reached",
+          description: `You've reached the ${CHARACTER_LIMIT.toLocaleString()} character limit. Upgrade to Pro for unlimited usage.`,
+          variant: "destructive",
+        });
+        setShowAuthDialog(true);
+        return;
+      }
+    }
+
     setIsGenerating(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Update used characters for free users
+    if (userPlan !== "pro" && userPlan !== "business") {
+      setUsedCharacters(prev => prev + text.length);
+    }
+    
     setIsGenerating(false);
     
     toast({
@@ -53,10 +90,23 @@ const Convert = () => {
     setIsPlaying(!isPlaying);
   };
 
+  // Available voices based on plan
+  const availableVoices = userPlan === "free" || userPlan === "guest" 
+    ? [{ id: "aria", name: "Aria", accent: "US Female" }]
+    : [
+        { id: "aria", name: "Aria", accent: "US Female" },
+        { id: "sarah", name: "Sarah", accent: "UK Female" },
+        { id: "roger", name: "Roger", accent: "US Male" },
+        { id: "liam", name: "Liam", accent: "AU Male" },
+      ];
+
+  const remainingCharacters = userPlan === "pro" || userPlan === "business" 
+    ? "Unlimited" 
+    : CHARACTER_LIMIT - usedCharacters;
+
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen bg-background">
-        <Header />
+    <div className="min-h-screen bg-background">
+      <Header />
       
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
@@ -66,6 +116,37 @@ const Convert = () => {
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             Transform your text into lifelike speech or convert audio to text with our advanced AI technology.
           </p>
+          
+          {/* Usage indicator for free/guest users */}
+          {(userPlan === "free" || userPlan === "guest") && (
+            <Card className="card-premium max-w-md mx-auto mt-6">
+              <CardContent className="py-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium">Character Usage</span>
+                  <Badge variant="secondary">{userPlan === "guest" ? "Guest" : "Free"}</Badge>
+                </div>
+                <div className="bg-muted rounded-full h-2 mb-2">
+                  <div 
+                    className="bg-primary h-2 rounded-full transition-all" 
+                    style={{ width: `${(usedCharacters / CHARACTER_LIMIT) * 100}%` }}
+                  ></div>
+                </div>
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <span>{usedCharacters.toLocaleString()} / {CHARACTER_LIMIT.toLocaleString()} used</span>
+                  {!user && (
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={() => setShowAuthDialog(true)}
+                      className="text-xs p-1 h-auto"
+                    >
+                      Sign up for more
+                    </Button>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         <Tabs defaultValue="text-to-speech" className="max-w-4xl mx-auto">
@@ -89,90 +170,100 @@ const Convert = () => {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <Textarea
-                    placeholder="Enter your text here... (up to 5000 characters)"
+                    placeholder={`Enter your text here... (${
+                      userPlan === "pro" || userPlan === "business" 
+                        ? "unlimited characters" 
+                        : `up to ${CHARACTER_LIMIT.toLocaleString()} characters`
+                    })`}
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     rows={10}
                     className="resize-none"
-                    maxLength={5000}
+                    maxLength={userPlan === "pro" || userPlan === "business" ? undefined : CHARACTER_LIMIT}
                   />
                   
-                  <div className="text-sm text-muted-foreground text-right">
-                    {text.length}/5000 characters
+                  <div className="flex justify-between items-center text-sm">
+                    <div className="text-muted-foreground">
+                      {text.length}/{userPlan === "pro" || userPlan === "business" ? "∞" : CHARACTER_LIMIT.toLocaleString()} characters
+                    </div>
+                    {(userPlan === "free" || userPlan === "guest") && (
+                      <div className="text-muted-foreground">
+                        Remaining: {typeof remainingCharacters === "number" ? remainingCharacters.toLocaleString() : remainingCharacters}
+                      </div>
+                    )}
                   </div>
 
                   <div className="space-y-4">
                     <div>
-                      <Label className="text-sm font-medium mb-3 block">Voice Selection</Label>
-                      <div className="grid grid-cols-2 gap-2">
-                        <button
-                          onClick={() => setVoice("aria")}
-                          className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
-                            voice === "aria" 
-                              ? "border-primary bg-primary/10 text-primary" 
-                              : "border-border hover:border-primary/50"
-                          }`}
-                        >
-                          <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center">
-                            <span className="text-pink-600 font-semibold text-sm">A</span>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-medium text-xs">Aria</div>
-                            <div className="text-xs text-muted-foreground">US Female</div>
-                          </div>
-                        </button>
-                        
-                        <button
-                          onClick={() => setVoice("sarah")}
-                          className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
-                            voice === "sarah" 
-                              ? "border-primary bg-primary/10 text-primary" 
-                              : "border-border hover:border-primary/50"
-                          }`}
-                        >
-                          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                            <span className="text-blue-600 font-semibold text-sm">S</span>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-medium text-xs">Sarah</div>
-                            <div className="text-xs text-muted-foreground">UK Female</div>
-                          </div>
-                        </button>
-                        
-                        <button
-                          onClick={() => setVoice("roger")}
-                          className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
-                            voice === "roger" 
-                              ? "border-primary bg-primary/10 text-primary" 
-                              : "border-border hover:border-primary/50"
-                          }`}
-                        >
-                          <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-                            <span className="text-green-600 font-semibold text-sm">R</span>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-medium text-xs">Roger</div>
-                            <div className="text-xs text-muted-foreground">US Male</div>
-                          </div>
-                        </button>
-                        
-                        <button
-                          onClick={() => setVoice("liam")}
-                          className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
-                            voice === "liam" 
-                              ? "border-primary bg-primary/10 text-primary" 
-                              : "border-border hover:border-primary/50"
-                          }`}
-                        >
-                          <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center">
-                            <span className="text-orange-600 font-semibold text-sm">L</span>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-medium text-xs">Liam</div>
-                            <div className="text-xs text-muted-foreground">AU Male</div>
-                          </div>
-                        </button>
+                      <div className="flex items-center justify-between mb-3">
+                        <Label className="text-sm font-medium">Voice Selection</Label>
+                        {(userPlan === "free" || userPlan === "guest") && (
+                          <Badge variant="outline" className="text-xs">
+                            <AlertCircle className="h-3 w-3 mr-1" />
+                            Limited Selection
+                          </Badge>
+                        )}
                       </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        {availableVoices.map((voiceOption) => (
+                          <button
+                            key={voiceOption.id}
+                            onClick={() => setVoice(voiceOption.id)}
+                            className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
+                              voice === voiceOption.id 
+                                ? "border-primary bg-primary/10 text-primary" 
+                                : "border-border hover:border-primary/50"
+                            }`}
+                          >
+                            <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center">
+                              <span className="text-pink-600 font-semibold text-sm">
+                                {voiceOption.name.charAt(0)}
+                              </span>
+                            </div>
+                            <div className="text-center">
+                              <div className="font-medium text-xs">{voiceOption.name}</div>
+                              <div className="text-xs text-muted-foreground">{voiceOption.accent}</div>
+                            </div>
+                          </button>
+                        ))}
+                        
+                        {/* Show locked voices for free users */}
+                        {(userPlan === "free" || userPlan === "guest") && (
+                          <>
+                            {[
+                              { name: "Sarah", accent: "UK Female" },
+                              { name: "Roger", accent: "US Male" },
+                              { name: "Liam", accent: "AU Male" }
+                            ].map((lockedVoice, index) => (
+                              <button
+                                key={index}
+                                onClick={() => setShowAuthDialog(true)}
+                                className="p-3 rounded-lg border-2 border-dashed border-border hover:border-primary/50 transition-all flex flex-col items-center gap-2 opacity-60 relative"
+                              >
+                                <Crown className="h-4 w-4 absolute top-1 right-1 text-primary" />
+                                <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+                                  <span className="text-muted-foreground font-semibold text-sm">
+                                    {lockedVoice.name.charAt(0)}
+                                  </span>
+                                </div>
+                                <div className="text-center">
+                                  <div className="font-medium text-xs">{lockedVoice.name}</div>
+                                  <div className="text-xs text-muted-foreground">{lockedVoice.accent}</div>
+                                </div>
+                              </button>
+                            ))}
+                          </>
+                        )}
+                      </div>
+                      
+                      {(userPlan === "free" || userPlan === "guest") && (
+                        <div className="mt-3 p-3 bg-muted rounded-lg">
+                          <p className="text-xs text-muted-foreground">
+                            <Crown className="h-3 w-3 inline mr-1" />
+                            Upgrade to Pro for access to 50+ premium voices, high-quality audio, and unlimited usage.
+                          </p>
+                        </div>
+                      )}
                     </div>
 
                     <div>
@@ -254,8 +345,21 @@ const Convert = () => {
                     </Button>
                   </div>
 
-                  <div className="text-sm text-muted-foreground text-center">
-                    Estimated generation time: ~3 seconds
+                  <div className="text-sm text-muted-foreground text-center space-y-1">
+                    <div>Estimated generation time: ~3 seconds</div>
+                    {(userPlan === "free" || userPlan === "guest") && (
+                      <div className="text-xs">
+                        Quality: Standard (16kHz) • Format: MP3 only
+                        <Button 
+                          variant="link" 
+                          size="sm" 
+                          className="p-0 h-auto ml-1 text-xs"
+                          onClick={() => setShowAuthDialog(true)}
+                        >
+                          Upgrade for HD quality
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -338,8 +442,8 @@ const Convert = () => {
         </Tabs>
       </div>
       <Footer />
+      <AuthDialog open={showAuthDialog} onOpenChange={setShowAuthDialog} />
     </div>
-  </ProtectedRoute>
   );
 };
 
