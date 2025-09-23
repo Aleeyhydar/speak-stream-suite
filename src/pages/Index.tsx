@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { ArrowRight, Mic, Volume2, Zap, Shield, Clock } from "lucide-react";
+import { ArrowRight, Mic, Volume2, Zap, Shield, Clock, Users, Star, Sparkles, Bot, Headphones, AudioWaveform, Check, Play, Globe, BarChart3, Bell } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
@@ -126,8 +127,213 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* Voice Cloning - Coming Soon */}
+      <section className="py-20 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950 dark:to-blue-950">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <Badge className="mb-4 bg-purple-100 text-purple-700 hover:bg-purple-100">
+              <Sparkles className="h-3 w-3 mr-1" />
+              Coming Soon
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Voice Cloning Technology
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Create personalized AI voices with just a few minutes of audio. Perfect for content creators, 
+              businesses, and developers who need consistent brand voices.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <Card className="card-premium text-center">
+              <CardContent className="p-8">
+                <div className="p-4 bg-purple-100 rounded-full w-fit mx-auto mb-6">
+                  <Bot className="h-8 w-8 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4">Personal Voice Clone</h3>
+                <p className="text-muted-foreground">
+                  Upload 10 minutes of audio to create your personal AI voice that 
+                  sounds just like you.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="card-premium text-center">
+              <CardContent className="p-8">
+                <div className="p-4 bg-blue-100 rounded-full w-fit mx-auto mb-6">
+                  <Headphones className="h-8 w-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4">Studio Quality</h3>
+                <p className="text-muted-foreground">
+                  Professional-grade voice cloning with emotional nuances 
+                  and natural speech patterns.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="card-premium text-center">
+              <CardContent className="p-8">
+                <div className="p-4 bg-green-100 rounded-full w-fit mx-auto mb-6">
+                  <Shield className="h-8 w-8 text-green-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4">Secure & Private</h3>
+                <p className="text-muted-foreground">
+                  Your voice data is encrypted and protected with enterprise-level 
+                  security protocols.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="text-center">
+            <Button className="btn-secondary">
+              <Bell className="h-4 w-4 mr-2" />
+              Notify Me When Available
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Trusted by Professionals Worldwide
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              From content creators to enterprise teams, VoiceAI powers voice solutions across industries.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div className="text-center space-y-4">
+              <div className="p-4 bg-blue-100 rounded-full w-fit mx-auto">
+                <Play className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="font-semibold">Content Creators</h3>
+              <p className="text-muted-foreground text-sm">
+                Podcasters, YouTubers, and audiobook narrators creating engaging content
+              </p>
+            </div>
+
+            <div className="text-center space-y-4">
+              <div className="p-4 bg-green-100 rounded-full w-fit mx-auto">
+                <Users className="h-8 w-8 text-green-600" />
+              </div>
+              <h3 className="font-semibold">Businesses</h3>
+              <p className="text-muted-foreground text-sm">
+                Marketing teams creating voiceovers for ads, presentations, and training materials
+              </p>
+            </div>
+
+            <div className="text-center space-y-4">
+              <div className="p-4 bg-purple-100 rounded-full w-fit mx-auto">
+                <Globe className="h-8 w-8 text-purple-600" />
+              </div>
+              <h3 className="font-semibold">Educators</h3>
+              <p className="text-muted-foreground text-sm">
+                Teachers and course creators making learning content accessible worldwide
+              </p>
+            </div>
+
+            <div className="text-center space-y-4">
+              <div className="p-4 bg-orange-100 rounded-full w-fit mx-auto">
+                <BarChart3 className="h-8 w-8 text-orange-600" />
+              </div>
+              <h3 className="font-semibold">Developers</h3>
+              <p className="text-muted-foreground text-sm">
+                Building voice-enabled apps, games, and interactive experiences
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
       <section className="py-20 bg-muted">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              What Our Users Say
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="card-premium">
+              <CardContent className="p-8">
+                <div className="flex items-center mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 text-yellow-500 fill-current" />
+                  ))}
+                </div>
+                <p className="text-muted-foreground mb-6">
+                  "VoiceAI has revolutionized how I create content. The quality is incredible 
+                  and it saves me hours of recording time."
+                </p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-blue-600 font-semibold">S</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold">Sarah Johnson</div>
+                    <div className="text-sm text-muted-foreground">Podcast Producer</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="card-premium">
+              <CardContent className="p-8">
+                <div className="flex items-center mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 text-yellow-500 fill-current" />
+                  ))}
+                </div>
+                <p className="text-muted-foreground mb-6">
+                  "The multilingual support is fantastic. We use it for all our 
+                  international marketing campaigns."
+                </p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-green-600 font-semibold">M</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold">Mike Chen</div>
+                    <div className="text-sm text-muted-foreground">Marketing Director</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="card-premium">
+              <CardContent className="p-8">
+                <div className="flex items-center mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 text-yellow-500 fill-current" />
+                  ))}
+                </div>
+                <p className="text-muted-foreground mb-6">
+                  "As a developer, the API integration was seamless. Customer support 
+                  is top-notch too!"
+                </p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-purple-600 font-semibold">A</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold">Alex Rivera</div>
+                    <div className="text-sm text-muted-foreground">Software Engineer</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
@@ -145,6 +351,55 @@ const Index = () => {
             <div>
               <div className="text-3xl md:text-4xl font-bold mb-2">24/7</div>
               <div className="text-muted-foreground">Expert Support</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Demo Visualization Section */}
+      <section className="py-20 bg-gradient-to-br from-primary/5 to-accent">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8">
+              See VoiceAI in Action
+            </h2>
+            <div className="bg-card rounded-2xl p-8 shadow-[var(--shadow-strong)]">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="space-y-4">
+                  <div className="p-4 bg-muted rounded-lg text-left">
+                    <div className="text-sm text-muted-foreground mb-2">Input Text:</div>
+                    <p className="font-medium">
+                      "Welcome to VoiceAI, where cutting-edge technology meets natural speech synthesis."
+                    </p>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <Button className="btn-hero flex-1">
+                      <Play className="h-4 w-4 mr-2" />
+                      Generate & Play
+                    </Button>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center justify-center h-32 bg-gradient-to-r from-primary/10 to-accent rounded-lg">
+                    <div className="flex items-center space-x-2">
+                      <AudioWaveform className="h-8 w-8 text-primary" />
+                      <div className="flex space-x-1">
+                        {[...Array(12)].map((_, i) => (
+                          <div
+                            key={i}
+                            className="sound-wave"
+                            style={{ height: `${Math.random() * 40 + 10}px` }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm text-muted-foreground">Audio Waveform Visualization</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

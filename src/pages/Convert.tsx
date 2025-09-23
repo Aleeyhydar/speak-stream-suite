@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Upload, Download, Play, Pause, Volume2, Mic, Crown, AlertCircle } from "lucide-react";
+import { Upload, Download, Play, Pause, Volume2, Mic, Crown, AlertCircle, Settings, Music, AudioWaveform, FileAudio, Zap, Sparkles, Check } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
@@ -22,6 +22,14 @@ const Convert = () => {
   const [speed, setSpeed] = useState([1]);
   const [pitch, setPitch] = useState([0]);
   const [showAuthDialog, setShowAuthDialog] = useState(false);
+  
+  // Pro features state
+  const [audioFormat, setAudioFormat] = useState("mp3");
+  const [bitrate, setBitrate] = useState([128]);
+  const [sampleRate, setSampleRate] = useState("22050");
+  const [emotion, setEmotion] = useState("neutral");
+  const [backgroundMusic, setBackgroundMusic] = useState("none");
+  const [ssmlEnabled, setSsmlEnabled] = useState(false);
   const { toast } = useToast();
   const { user } = useAuth();
 
@@ -289,6 +297,196 @@ const Convert = () => {
                         className="mt-2"
                       />
                     </div>
+
+                    {/* Pro Features */}
+                    {(userPlan === "pro" || userPlan === "business") && (
+                      <>
+                        <div className="border-t pt-4">
+                          <div className="flex items-center gap-2 mb-4">
+                            <Crown className="h-4 w-4 text-primary" />
+                            <Label className="text-sm font-medium">Pro Features</Label>
+                            <Badge variant="secondary" className="text-xs">Premium</Badge>
+                          </div>
+                          
+                          <div className="space-y-4">
+                            {/* Audio Format Selection */}
+                            <div>
+                              <Label className="text-sm font-medium mb-3 block">Audio Format</Label>
+                              <div className="grid grid-cols-4 gap-2">
+                                {[
+                                  { id: "mp3", name: "MP3", icon: FileAudio },
+                                  { id: "wav", name: "WAV", icon: AudioWaveform },
+                                  { id: "flac", name: "FLAC", icon: Music },
+                                  { id: "ogg", name: "OGG", icon: Volume2 }
+                                ].map((format) => {
+                                  const Icon = format.icon;
+                                  return (
+                                    <button
+                                      key={format.id}
+                                      onClick={() => setAudioFormat(format.id)}
+                                      className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center gap-1 ${
+                                        audioFormat === format.id 
+                                          ? "border-primary bg-primary/10 text-primary" 
+                                          : "border-border hover:border-primary/50"
+                                      }`}
+                                    >
+                                      <Icon className="h-4 w-4" />
+                                      <div className="text-xs font-medium">{format.name}</div>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </div>
+
+                            {/* Quality Settings */}
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <Label className="text-sm font-medium">Bitrate: {bitrate[0]}kbps</Label>
+                                <Slider
+                                  value={bitrate}
+                                  onValueChange={setBitrate}
+                                  max={320}
+                                  min={64}
+                                  step={32}
+                                  className="mt-2"
+                                />
+                              </div>
+                              <div>
+                                <Label className="text-sm font-medium">Sample Rate</Label>
+                                <Select value={sampleRate} onValueChange={setSampleRate}>
+                                  <SelectTrigger className="mt-2">
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="16000">16 kHz</SelectItem>
+                                    <SelectItem value="22050">22.05 kHz</SelectItem>
+                                    <SelectItem value="44100">44.1 kHz</SelectItem>
+                                    <SelectItem value="48000">48 kHz</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                            </div>
+
+                            {/* Emotion Control */}
+                            <div>
+                              <Label className="text-sm font-medium mb-3 block">Voice Emotion</Label>
+                              <div className="grid grid-cols-3 gap-2">
+                                {[
+                                  { id: "neutral", name: "Neutral", emoji: "😐" },
+                                  { id: "happy", name: "Happy", emoji: "😊" },
+                                  { id: "sad", name: "Sad", emoji: "😢" },
+                                  { id: "excited", name: "Excited", emoji: "🤩" },
+                                  { id: "calm", name: "Calm", emoji: "😌" },
+                                  { id: "angry", name: "Angry", emoji: "😠" }
+                                ].map((emotionOption) => (
+                                  <button
+                                    key={emotionOption.id}
+                                    onClick={() => setEmotion(emotionOption.id)}
+                                    className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center gap-1 ${
+                                      emotion === emotionOption.id 
+                                        ? "border-primary bg-primary/10 text-primary" 
+                                        : "border-border hover:border-primary/50"
+                                    }`}
+                                  >
+                                    <span className="text-lg">{emotionOption.emoji}</span>
+                                    <div className="text-xs font-medium">{emotionOption.name}</div>
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Background Music */}
+                            <div>
+                              <Label className="text-sm font-medium mb-3 block">Background Music</Label>
+                              <div className="grid grid-cols-2 gap-2">
+                                {[
+                                  { id: "none", name: "None" },
+                                  { id: "ambient", name: "Ambient" },
+                                  { id: "corporate", name: "Corporate" },
+                                  { id: "upbeat", name: "Upbeat" }
+                                ].map((music) => (
+                                  <button
+                                    key={music.id}
+                                    onClick={() => setBackgroundMusic(music.id)}
+                                    className={`p-3 rounded-lg border-2 transition-all text-center ${
+                                      backgroundMusic === music.id 
+                                        ? "border-primary bg-primary/10 text-primary" 
+                                        : "border-border hover:border-primary/50"
+                                    }`}
+                                  >
+                                    <Music className="h-4 w-4 mx-auto mb-1" />
+                                    <div className="text-xs font-medium">{music.name}</div>
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* SSML Support */}
+                            <div className="p-3 bg-muted rounded-lg">
+                              <div className="flex items-center justify-between mb-2">
+                                <div className="flex items-center gap-2">
+                                  <Settings className="h-4 w-4" />
+                                  <Label className="text-sm font-medium">SSML Support</Label>
+                                </div>
+                                <button
+                                  onClick={() => setSsmlEnabled(!ssmlEnabled)}
+                                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+                                    ssmlEnabled ? "bg-primary" : "bg-muted-foreground"
+                                  }`}
+                                >
+                                  <span
+                                    className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${
+                                      ssmlEnabled ? "translate-x-5" : "translate-x-1"
+                                    }`}
+                                  />
+                                </button>
+                              </div>
+                              <p className="text-xs text-muted-foreground">
+                                Use Speech Synthesis Markup Language for advanced control over pronunciation, pauses, and emphasis.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
+
+                    {/* Pro Features Teaser for Free Users */}
+                    {(userPlan === "free" || userPlan === "guest") && (
+                      <div className="border-t pt-4">
+                        <div className="p-4 bg-gradient-to-r from-primary/5 to-accent rounded-lg">
+                          <div className="flex items-center gap-2 mb-3">
+                            <Sparkles className="h-4 w-4 text-primary" />
+                            <span className="font-medium text-sm">Unlock Pro Features</span>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground mb-3">
+                            <div className="flex items-center gap-1">
+                              <Check className="h-3 w-3 text-green-500" />
+                              Multiple audio formats
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Check className="h-3 w-3 text-green-500" />
+                              HD quality (up to 48kHz)
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Check className="h-3 w-3 text-green-500" />
+                              Voice emotions
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Check className="h-3 w-3 text-green-500" />
+                              Background music
+                            </div>
+                          </div>
+                          <Button 
+                            size="sm" 
+                            onClick={() => setShowAuthDialog(true)}
+                            className="btn-hero w-full text-xs py-2"
+                          >
+                            <Zap className="h-3 w-3 mr-1" />
+                            Upgrade to Pro
+                          </Button>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   <Button 
@@ -341,7 +539,7 @@ const Convert = () => {
                       className="btn-secondary"
                     >
                       <Download className="h-4 w-4 mr-2" />
-                      Download MP3
+                      Download {(userPlan === "pro" || userPlan === "business") ? audioFormat.toUpperCase() : "MP3"}
                     </Button>
                   </div>
 
