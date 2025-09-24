@@ -145,7 +145,7 @@ const Pricing = () => {
                     className={`w-full ${plan.variant === 'secondary' ? 'btn-secondary' : 'btn-hero'}`}
                     asChild
                   >
-                    <Link to="/convert">
+                    <Link to={plan.name === 'Free' ? '/convert' : '/checkout'}>
                       {plan.cta}
                     </Link>
                   </Button>
