@@ -158,7 +158,7 @@ const Convert = () => {
         </div>
 
         <Tabs defaultValue="text-to-speech" className="max-w-4xl mx-auto">
-          <TabsList className="grid w-full grid-cols-2 mb-8">
+          <TabsList className={`grid w-full ${(userPlan === "pro" || userPlan === "business") ? 'grid-cols-3' : 'grid-cols-2'} mb-8`}>
             <TabsTrigger value="text-to-speech" className="flex items-center gap-2">
               <Volume2 className="h-4 w-4" />
               Text to Speech
@@ -167,6 +167,13 @@ const Convert = () => {
               <Mic className="h-4 w-4" />
               Speech to Text
             </TabsTrigger>
+            {(userPlan === "pro" || userPlan === "business") && (
+              <TabsTrigger value="previous-projects" className="flex items-center gap-2">
+                <AudioWaveform className="h-4 w-4" />
+                Previous Projects
+                <Badge variant="secondary" className="ml-1 text-xs">Pro</Badge>
+              </TabsTrigger>
+            )}
           </TabsList>
 
           <TabsContent value="text-to-speech">
@@ -637,10 +644,98 @@ const Convert = () => {
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* Previous Projects Tab - Pro Only */}
+          {(userPlan === "pro" || userPlan === "business") && (
+            <TabsContent value="previous-projects">
+              <Card className="card-premium">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="flex items-center gap-2">
+                      <AudioWaveform className="h-5 w-5" />
+                      Previous Projects
+                    </CardTitle>
+                    <Badge variant="secondary" className="flex items-center gap-1">
+                      <Crown className="h-3 w-3" />
+                      Pro Feature
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {/* Mock previous projects */}
+                    {[
+                      { id: 1, title: "Newsletter Introduction", text: "Welcome to our monthly newsletter...", voice: "Aria", date: "2024-01-15", duration: "0:45" },
+                      { id: 2, title: "Product Demo Script", text: "Today I'll show you how our product...", voice: "Roger", date: "2024-01-14", duration: "1:23" },
+                      { id: 3, title: "Podcast Intro", text: "Hello and welcome to Tech Talk...", voice: "Sarah", date: "2024-01-13", duration: "0:32" }
+                    ].map((project) => (
+                      <div key={project.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex-1">
+                            <h3 className="font-medium mb-1">{project.title}</h3>
+                            <p className="text-sm text-muted-foreground line-clamp-2">{project.text}</p>
+                          </div>
+                          <div className="flex items-center gap-2 ml-4">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => {
+                                setText(project.text);
+                                setVoice(project.voice.toLowerCase());
+                                toast({
+                                  title: "Project Loaded",
+                                  description: "Project loaded into editor for modification.",
+                                });
+                              }}
+                            >
+                              <Settings className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={togglePlay}
+                            >
+                              {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={handleDownload}
+                            >
+                              <Download className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between text-xs text-muted-foreground">
+                          <div className="flex items-center gap-4">
+                            <span>Voice: {project.voice}</span>
+                            <span>Duration: {project.duration}</span>
+                          </div>
+                          <span>{project.date}</span>
+                        </div>
+                      </div>
+                    ))}
+                    
+                    {/* Empty state would go here in real app */}
+                    <div className="text-center py-8 text-muted-foreground">
+                      <AudioWaveform className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                      <p>Your previous projects will appear here</p>
+                      <p className="text-sm">Generate your first audio to see it saved automatically</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          )}
         </Tabs>
       </div>
+
       <Footer />
-      <AuthDialog open={showAuthDialog} onOpenChange={setShowAuthDialog} />
+      
+      <AuthDialog 
+        open={showAuthDialog} 
+        onOpenChange={setShowAuthDialog} 
+      />
     </div>
   );
 };
