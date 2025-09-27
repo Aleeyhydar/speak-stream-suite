@@ -179,7 +179,7 @@ const Convert = () => {
           <TabsContent value="text-to-speech">
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Input Section */}
-              <Card className="card-premium">
+              <Card className="card-premium h-fit">
                 <CardHeader>
                   <CardTitle>Text Input</CardTitle>
                 </CardHeader>
@@ -514,7 +514,7 @@ const Convert = () => {
               </Card>
 
               {/* Output Section */}
-              <Card className="card-premium">
+              <Card className="card-premium h-fit">
                 <CardHeader>
                   <CardTitle>Audio Output</CardTitle>
                 </CardHeader>

@@ -13,7 +13,7 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="hero-gradient text-primary-foreground">
+      <section className="hero-gradient text-primary-foreground overflow-hidden">
         <div className="container mx-auto px-4 py-20 lg:py-32">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
@@ -24,11 +24,11 @@ const Index = () => {
                     AI Voice Technology
                   </span>
                 </div>
-                <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
+                <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight">
                   Transform Text to
                   <span className="block text-gradient text-slate-600">Lifelike Speech</span>
                 </h1>
-                <p className="text-xl opacity-90 max-w-lg">
+                <p className="text-lg sm:text-xl opacity-90 max-w-lg">
                   The most advanced and affordable voice AI platform. Create natural-sounding speech 
                   from text with our cutting-edge AI technology.
                 </p>
@@ -36,19 +36,19 @@ const Index = () => {
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/convert">
-                  <Button className="btn-hero group">
+                  <Button className="btn-hero group w-full sm:w-auto">
                     Start Converting
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
                 <Link to="/pricing">
-                  <Button className="btn-secondary">
+                  <Button className="btn-secondary w-full sm:w-auto">
                     View Pricing
                   </Button>
                 </Link>
               </div>
               
-              <div className="flex items-center space-x-8 text-sm opacity-80">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-8 space-y-2 sm:space-y-0 text-sm opacity-80">
                 <div className="flex items-center space-x-2">
                   <Zap className="h-4 w-4" />
                   <span>Lightning Fast</span>
@@ -64,8 +64,12 @@ const Index = () => {
               </div>
             </div>
             
-            <div className="relative">
-              <img src={heroImage} alt="Advanced sound wave visualization representing AI voice technology" className="w-full h-auto rounded-2xl shadow-2xl" />
+            <div className="relative max-w-full">
+              <img 
+                src={heroImage} 
+                alt="Advanced sound wave visualization representing AI voice technology" 
+                className="w-full max-w-full h-auto rounded-2xl shadow-2xl object-cover" 
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl" />
             </div>
           </div>

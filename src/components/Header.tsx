@@ -1,9 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { Mic, Volume2, LogOut } from "lucide-react";
+import { Mic, Volume2, LogOut, Menu, X } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { AuthDialog } from "@/components/AuthDialog";
 import { useState } from "react";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const Header = () => {
   const location = useLocation();
@@ -62,6 +67,7 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center space-x-4">
+          {/* Desktop Navigation */}
           {user ? (
             <>
               <span className="hidden sm:block text-sm text-muted-foreground">
@@ -86,13 +92,95 @@ const Header = () => {
                 Sign In
               </Button>
               <Button 
-                className="btn-hero"
+                className="btn-hero hidden sm:inline-flex"
                 onClick={() => setShowAuthDialog(true)}
               >
                 Get Started
               </Button>
             </>
           )}
+
+          {/* Mobile Navigation */}
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <nav className="flex flex-col space-y-4 mt-6">
+                <Link
+                  to="/"
+                  className={`text-lg font-medium transition-colors hover:text-primary ${
+                    location.pathname === "/" ? "text-primary" : "text-muted-foreground"
+                  }`}
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/convert"
+                  className={`text-lg font-medium transition-colors hover:text-primary ${
+                    location.pathname === "/convert" ? "text-primary" : "text-muted-foreground"
+                  }`}
+                >
+                  Convert
+                </Link>
+                {user && (
+                  <Link
+                    to="/projects"
+                    className={`text-lg font-medium transition-colors hover:text-primary ${
+                      location.pathname === "/projects" ? "text-primary" : "text-muted-foreground"
+                    }`}
+                  >
+                    Projects
+                  </Link>
+                )}
+                <Link
+                  to="/pricing"
+                  className={`text-lg font-medium transition-colors hover:text-primary ${
+                    location.pathname === "/pricing" ? "text-primary" : "text-muted-foreground"
+                  }`}
+                >
+                  Pricing
+                </Link>
+                
+                <div className="border-t pt-4 space-y-4">
+                  {user ? (
+                    <>
+                      <div className="text-sm text-muted-foreground">
+                        {user.email}
+                      </div>
+                      <Button 
+                        variant="ghost" 
+                        onClick={handleSignOut}
+                        className="w-full justify-start"
+                      >
+                        <LogOut className="h-4 w-4 mr-2" />
+                        Sign Out
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button 
+                        variant="ghost" 
+                        onClick={() => setShowAuthDialog(true)}
+                        className="w-full justify-start"
+                      >
+                        Sign In
+                      </Button>
+                      <Button 
+                        className="btn-hero w-full"
+                        onClick={() => setShowAuthDialog(true)}
+                      >
+                        Get Started
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
         <AuthDialog open={showAuthDialog} onOpenChange={setShowAuthDialog} />
       </div>
