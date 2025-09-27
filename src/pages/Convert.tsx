@@ -572,77 +572,115 @@ const Convert = () => {
           </TabsContent>
 
           <TabsContent value="speech-to-text">
-            <Card className="card-premium max-w-2xl mx-auto">
-              <CardHeader>
-                <CardTitle>Speech to Text Conversion</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="border-2 border-dashed border-border rounded-lg p-8 text-center">
-                  <Upload className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-lg font-medium mb-2">Upload Audio File</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Drag and drop your audio file here, or click to browse
-                  </p>
-                  <Button className="btn-secondary">
-                    Choose File
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* Input Section */}
+              <Card className="card-premium h-fit">
+                <CardHeader>
+                  <CardTitle>Audio Input</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
+                    <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                    <h3 className="font-medium mb-2">Upload Audio File</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Drag and drop your audio file here, or click to browse
+                    </p>
+                    <p className="text-xs text-muted-foreground mb-4">
+                      Supported formats: MP3, WAV, FLAC, OGG • Max file size: {userPlan === "pro" || userPlan === "business" ? "500MB" : "25MB"}
+                    </p>
+                    <Button variant="outline" className="w-full">
+                      <Upload className="h-4 w-4 mr-2" />
+                      Choose File
+                    </Button>
+                  </div>
+
+                  <div className="text-center">
+                    <div className="text-sm text-muted-foreground mb-4">or</div>
+                    <Button variant="outline" className="w-full">
+                      <Mic className="h-4 w-4 mr-2" />
+                      Record Audio
+                    </Button>
+                  </div>
+
+                  {/* Language Detection */}
+                  <div>
+                    <Label className="text-sm font-medium mb-3 block">Language Detection</Label>
+                    <Select defaultValue="auto">
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="auto">Auto-detect</SelectItem>
+                        <SelectItem value="en">English</SelectItem>
+                        <SelectItem value="es">Spanish</SelectItem>
+                        <SelectItem value="fr">French</SelectItem>
+                        <SelectItem value="de">German</SelectItem>
+                        <SelectItem value="it">Italian</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <Button 
+                    onClick={handleGenerate} 
+                    className="w-full gradient-primary" 
+                    size="lg"
+                    disabled={isGenerating}
+                  >
+                    {isGenerating ? (
+                      <div className="flex items-center gap-2">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        Transcribing...
+                      </div>
+                    ) : (
+                      <>
+                        <Zap className="h-4 w-4 mr-2" />
+                        Convert to Text
+                      </>
+                    )}
                   </Button>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Supports MP3, WAV, M4A files up to 100MB
-                  </p>
-                </div>
+                </CardContent>
+              </Card>
 
-                <div className="space-y-4">
-                  <Label className="text-sm font-medium">Output Language</Label>
-                  <div className="grid grid-cols-3 gap-3">
-                    <button className="p-3 rounded-lg border-2 border-primary bg-primary/10 text-primary transition-all flex flex-col items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                        <span className="text-blue-600 font-semibold text-xs">EN</span>
-                      </div>
-                      <div className="text-xs font-medium">English</div>
-                    </button>
-                    
-                    <button className="p-3 rounded-lg border-2 border-border hover:border-primary/50 transition-all flex flex-col items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
-                        <span className="text-red-600 font-semibold text-xs">ES</span>
-                      </div>
-                      <div className="text-xs font-medium">Spanish</div>
-                    </button>
-                    
-                    <button className="p-3 rounded-lg border-2 border-border hover:border-primary/50 transition-all flex flex-col items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
-                        <span className="text-purple-600 font-semibold text-xs">FR</span>
-                      </div>
-                      <div className="text-xs font-medium">French</div>
-                    </button>
-                    
-                    <button className="p-3 rounded-lg border-2 border-border hover:border-primary/50 transition-all flex flex-col items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center">
-                        <span className="text-yellow-600 font-semibold text-xs">DE</span>
-                      </div>
-                      <div className="text-xs font-medium">German</div>
-                    </button>
-                    
-                    <button className="p-3 rounded-lg border-2 border-border hover:border-primary/50 transition-all flex flex-col items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-                        <span className="text-green-600 font-semibold text-xs">IT</span>
-                      </div>
-                      <div className="text-xs font-medium">Italian</div>
-                    </button>
+              {/* Output Section */}
+              <Card className="card-premium h-fit">
+                <CardHeader>
+                  <CardTitle>Text Output</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <Textarea
+                    placeholder="Your transcribed text will appear here..."
+                    rows={15}
+                    className="resize-none"
+                    readOnly
+                  />
+                  
+                  <div className="flex gap-2">
+                    <Button variant="outline" className="flex-1">
+                      <Download className="h-4 w-4 mr-2" />
+                      Download TXT
+                    </Button>
+                    <Button variant="outline" className="flex-1">
+                      <Download className="h-4 w-4 mr-2" />
+                      Copy Text
+                    </Button>
                   </div>
-                </div>
 
-                <Button className="btn-hero w-full">
-                  Convert to Text
-                </Button>
-
-                <div className="bg-muted rounded-lg p-4">
-                  <Label className="text-sm font-medium">Transcription Result</Label>
-                  <div className="mt-2 text-muted-foreground">
-                    Your transcribed text will appear here...
+                  {/* Accuracy & Confidence Score */}
+                  <div className="bg-muted rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium">Confidence Score</span>
+                      <Badge variant="secondary">95%</Badge>
+                    </div>
+                    <div className="bg-background rounded-full h-2">
+                      <div className="bg-primary h-2 rounded-full" style={{ width: '95%' }}></div>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-2">
+                      High confidence transcription. Review for accuracy.
+                    </p>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           {/* Previous Projects Tab - Pro Only */}
