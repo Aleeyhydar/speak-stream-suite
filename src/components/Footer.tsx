@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Volume2, Instagram, Twitter } from "lucide-react";
+import { useEffect } from "react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,7 +11,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand & Social */}
           <div className="space-y-4">
-            <Link to="/" className="flex items-center space-x-2 group">
+            <Link to="/" className="flex items-center space-x-2 group" onClick={() => window.scrollTo(0, 0)}>
               <div className="p-2 bg-primary-foreground/10 rounded-lg group-hover:scale-105 transition-transform">
                 <Volume2 className="h-5 w-5 text-primary-foreground" />
               </div>
@@ -56,22 +57,22 @@ const Footer = () => {
             <h3 className="font-semibold mb-4">Platform</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
+                <Link to="/" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors" onClick={() => window.scrollTo(0, 0)}>
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/convert" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
+                <Link to="/convert" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors" onClick={() => window.scrollTo(0, 0)}>
                   Text to Speech
                 </Link>
               </li>
               <li>
-                <Link to="/convert" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
+                <Link to="/convert" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors" onClick={() => window.scrollTo(0, 0)}>
                   Speech to Text
                 </Link>
               </li>
               <li>
-                <Link to="/pricing" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
+                <Link to="/pricing" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors" onClick={() => window.scrollTo(0, 0)}>
                   Pricing
                 </Link>
               </li>
