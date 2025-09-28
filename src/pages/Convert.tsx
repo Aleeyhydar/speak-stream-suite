@@ -654,16 +654,16 @@ const Convert = () => {
                     readOnly
                   />
                   
-                  <div className="flex gap-2">
-                    <Button variant="outline" className="flex-1">
-                      <Download className="h-4 w-4 mr-2" />
-                      Download TXT
-                    </Button>
-                    <Button variant="outline" className="flex-1">
-                      <Download className="h-4 w-4 mr-2" />
-                      Copy Text
-                    </Button>
-                  </div>
+                   <div className="space-y-2">
+                     <Button variant="outline" className="w-full">
+                       <Download className="h-4 w-4 mr-2" />
+                       Download TXT
+                     </Button>
+                     <Button variant="outline" className="w-full">
+                       <Download className="h-4 w-4 mr-2" />
+                       Copy Text
+                     </Button>
+                   </div>
 
                   {/* Accuracy & Confidence Score */}
                   <div className="bg-muted rounded-lg p-4">
