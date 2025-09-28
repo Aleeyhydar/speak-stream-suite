@@ -183,7 +183,7 @@ const Convert = () => {
                 <CardHeader>
                   <CardTitle>Text Input</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-6 px-3 lg:px-6">
                   <Textarea
                     placeholder={`Enter your text here... (${
                       userPlan === "pro" || userPlan === "business" 
@@ -518,7 +518,7 @@ const Convert = () => {
                 <CardHeader>
                   <CardTitle>Audio Output</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-6 px-3 lg:px-6">
                   <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
                     <div className="text-center space-y-4">
                       <div className="p-4 bg-primary/10 rounded-full w-fit mx-auto">
@@ -578,7 +578,7 @@ const Convert = () => {
                 <CardHeader>
                   <CardTitle>Audio Input</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-6 px-3 lg:px-6">
                   <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
                     <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
                     <h3 className="font-medium mb-2">Upload Audio File</h3>
@@ -646,7 +646,7 @@ const Convert = () => {
                 <CardHeader>
                   <CardTitle>Text Output</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-6 px-3 lg:px-6">
                   <Textarea
                     placeholder="Your transcribed text will appear here..."
                     rows={15}
