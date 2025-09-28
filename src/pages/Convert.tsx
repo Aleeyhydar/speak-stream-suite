@@ -589,7 +589,7 @@ const Convert = () => {
                       Supported formats: MP3, WAV, FLAC, OGG • Max file size: {userPlan === "pro" || userPlan === "business" ? "500MB" : "25MB"}
                     </p>
                     <Button variant="outline" className="w-full">
-                      <Upload className="h-4 w-4 mr-2" />
+                      <Upload className="h-4 w-4 mr-1" />
                       Choose File
                     </Button>
                   </div>
