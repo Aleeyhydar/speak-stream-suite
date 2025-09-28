@@ -157,7 +157,7 @@ const Convert = () => {
           )}
         </div>
 
-        <Tabs defaultValue="text-to-speech" className="max-w-4xl mx-auto">
+        <Tabs defaultValue="text-to-speech" className="max-w-6xl mx-auto">
           <TabsList className={`grid w-full ${(userPlan === "pro" || userPlan === "business") ? 'grid-cols-3' : 'grid-cols-2'} mb-8`}>
             <TabsTrigger value="text-to-speech" className="flex items-center gap-2">
               <Volume2 className="h-4 w-4" />
@@ -177,7 +177,7 @@ const Convert = () => {
           </TabsList>
 
           <TabsContent value="text-to-speech">
-            <div className="grid lg:grid-cols-2 gap-8">
+            <div className="grid lg:grid-cols-2 gap-8 overflow-hidden">
               {/* Input Section */}
               <Card className="card-premium">
                 <CardHeader>
@@ -572,7 +572,7 @@ const Convert = () => {
           </TabsContent>
 
           <TabsContent value="speech-to-text">
-            <div className="grid lg:grid-cols-2 gap-8">
+            <div className="grid lg:grid-cols-2 gap-8 overflow-hidden">
               {/* Input Section */}
               <Card className="card-premium">
                 <CardHeader>

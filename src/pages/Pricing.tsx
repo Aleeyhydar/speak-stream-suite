@@ -19,6 +19,7 @@ const Pricing = () => {
         "1 voice option (Aria)",
         "Standard quality audio (16kHz)",
         "MP3 format only",
+        "Speech to Text: English only, 2min max",
         "Basic support",
         "Personal use only"
       ],
