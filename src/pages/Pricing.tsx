@@ -143,7 +143,7 @@ const Pricing = () => {
                   </ul>
 
                   <Button 
-                    className={`w-full ${plan.variant === 'secondary' ? 'btn-secondary' : 'btn-hero'}`}
+                    className={`w-full px-4 md:px-3 lg:px-4 ${plan.variant === 'secondary' ? 'btn-secondary' : 'btn-hero'}`}
                     asChild
                   >
                     <Link to={plan.name === 'Free' ? '/convert' : '/checkout'}>
