@@ -29,7 +29,7 @@ const Header = () => {
           <span className="text-xl font-bold">VoiceAI</span>
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden lg:flex items-center space-x-8">
           <Link
             to="/"
             className={`font-medium transition-colors hover:text-primary ${
@@ -100,10 +100,10 @@ const Header = () => {
             </>
           )}
 
-          {/* Mobile Navigation */}
+          {/* Mobile & Tablet Navigation */}
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+              <Button variant="ghost" size="icon" className="lg:hidden">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
