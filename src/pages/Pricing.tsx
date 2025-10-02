@@ -94,7 +94,7 @@ const Pricing = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+        <div className="grid md:grid-cols-3 gap-6 md:gap-4 lg:gap-8 max-w-6xl mx-auto mb-16">
           {plans.map((plan, index) => {
             const Icon = plan.icon;
             return (
@@ -108,24 +108,24 @@ const Pricing = () => {
                   </Badge>
                 )}
                 
-                <CardHeader className="text-center pb-8">
-                  <div className="p-3 bg-primary/10 rounded-full w-fit mx-auto mb-4">
-                    <Icon className="h-8 w-8 text-primary" />
+                <CardHeader className="text-center pb-6 md:pb-4 lg:pb-8">
+                  <div className="p-2 md:p-2 lg:p-3 bg-primary/10 rounded-full w-fit mx-auto mb-3 lg:mb-4">
+                    <Icon className="h-6 w-6 lg:h-8 lg:w-8 text-primary" />
                   </div>
-                  <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                  <div className="space-y-2">
-                    <div className="text-4xl font-bold">
+                  <CardTitle className="text-xl lg:text-2xl">{plan.name}</CardTitle>
+                  <div className="space-y-1 lg:space-y-2">
+                    <div className="text-3xl lg:text-4xl font-bold">
                       {plan.price}
-                      <span className="text-lg font-normal text-muted-foreground">
+                      <span className="text-base lg:text-lg font-normal text-muted-foreground">
                         /{plan.period}
                       </span>
                     </div>
-                    <p className="text-muted-foreground">{plan.description}</p>
+                    <p className="text-sm lg:text-base text-muted-foreground">{plan.description}</p>
                   </div>
                 </CardHeader>
 
-                <CardContent className="space-y-6">
-                  <ul className="space-y-3">
+                <CardContent className="space-y-4 md:space-y-3 lg:space-y-6">
+                  <ul className="space-y-2 md:space-y-1.5 lg:space-y-3">
                     {plan.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start space-x-3">
                         <Check className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
