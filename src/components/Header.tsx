@@ -70,13 +70,13 @@ const Header = () => {
           {/* Desktop Navigation */}
           {user ? (
             <>
-              <span className="hidden sm:block text-sm text-muted-foreground">
+              <span className="hidden lg:block text-sm text-muted-foreground">
                 {user.email}
               </span>
               <Button 
                 variant="ghost" 
                 onClick={handleSignOut}
-                className="hidden sm:inline-flex"
+                className="hidden lg:inline-flex"
               >
                 <LogOut className="h-4 w-4 mr-2" />
                 Sign Out
@@ -87,12 +87,12 @@ const Header = () => {
               <Button 
                 variant="ghost" 
                 onClick={() => setShowAuthDialog(true)}
-                className="hidden sm:inline-flex"
+                className="hidden lg:inline-flex"
               >
                 Sign In
               </Button>
               <Button 
-                className="btn-hero hidden sm:inline-flex"
+                className="btn-hero hidden lg:inline-flex"
                 onClick={() => setShowAuthDialog(true)}
               >
                 Get Started
