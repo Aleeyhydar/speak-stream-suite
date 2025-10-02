@@ -108,7 +108,7 @@ const Pricing = () => {
                   </Badge>
                 )}
                 
-                <CardHeader className="text-center pb-6 md:pb-4 lg:pb-8">
+                <CardHeader className="text-center pb-6 md:pb-4 lg:pb-8 px-6 md:px-3 lg:px-6">
                   <div className="p-2 md:p-2 lg:p-3 bg-primary/10 rounded-full w-fit mx-auto mb-3 lg:mb-4">
                     <Icon className="h-6 w-6 lg:h-8 lg:w-8 text-primary" />
                   </div>
@@ -124,7 +124,7 @@ const Pricing = () => {
                   </div>
                 </CardHeader>
 
-                <CardContent className="space-y-4 md:space-y-3 lg:space-y-6">
+                <CardContent className="space-y-4 md:space-y-3 lg:space-y-6 px-6 md:px-3 lg:px-6">
                   <ul className="space-y-2 md:space-y-1.5 lg:space-y-3">
                     {plan.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start space-x-3">
