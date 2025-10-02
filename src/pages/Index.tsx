@@ -88,13 +88,13 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-4 lg:gap-8">
             <Card className="card-premium text-center">
-              <CardContent className="p-8">
-                <div className="p-4 bg-primary/10 rounded-full w-fit mx-auto mb-6">
-                  <Volume2 className="h-8 w-8 text-primary" />
+              <CardContent className="p-6 md:p-4 lg:p-8">
+                <div className="p-3 md:p-2 lg:p-4 bg-primary/10 rounded-full w-fit mx-auto mb-4 lg:mb-6">
+                  <Volume2 className="h-6 w-6 lg:h-8 lg:w-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">Premium Voice Quality</h3>
+                <h3 className="text-lg lg:text-xl font-semibold mb-3 lg:mb-4">Premium Voice Quality</h3>
                 <p className="text-muted-foreground">
                   Experience unparalleled voice quality with our advanced neural networks 
                   trained on diverse, high-quality speech data.
@@ -103,11 +103,11 @@ const Index = () => {
             </Card>
 
             <Card className="card-premium text-center">
-              <CardContent className="p-8">
-                <div className="p-4 bg-primary/10 rounded-full w-fit mx-auto mb-6">
-                  <Mic className="h-8 w-8 text-primary" />
+              <CardContent className="p-6 md:p-4 lg:p-8">
+                <div className="p-3 md:p-2 lg:p-4 bg-primary/10 rounded-full w-fit mx-auto mb-4 lg:mb-6">
+                  <Mic className="h-6 w-6 lg:h-8 lg:w-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">Speech to Text</h3>
+                <h3 className="text-lg lg:text-xl font-semibold mb-3 lg:mb-4">Speech to Text</h3>
                 <p className="text-muted-foreground">
                   Accurate transcription services that convert your audio recordings 
                   into text with industry-leading precision.
@@ -116,11 +116,11 @@ const Index = () => {
             </Card>
 
             <Card className="card-premium text-center">
-              <CardContent className="p-8">
-                <div className="p-4 bg-primary/10 rounded-full w-fit mx-auto mb-6">
-                  <Zap className="h-8 w-8 text-primary" />
+              <CardContent className="p-6 md:p-4 lg:p-8">
+                <div className="p-3 md:p-2 lg:p-4 bg-primary/10 rounded-full w-fit mx-auto mb-4 lg:mb-6">
+                  <Zap className="h-6 w-6 lg:h-8 lg:w-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">Lightning Fast</h3>
+                <h3 className="text-lg lg:text-xl font-semibold mb-3 lg:mb-4">Lightning Fast</h3>
                 <p className="text-muted-foreground">
                   Generate high-quality audio in seconds, not minutes. 
                   Our optimized infrastructure ensures rapid processing.
@@ -148,13 +148,13 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-4 lg:gap-8 mb-12">
             <Card className="card-premium text-center">
-              <CardContent className="p-8">
-                <div className="p-4 bg-purple-100 rounded-full w-fit mx-auto mb-6">
-                  <Bot className="h-8 w-8 text-purple-600" />
+              <CardContent className="p-6 md:p-4 lg:p-8">
+                <div className="p-3 md:p-2 lg:p-4 bg-purple-100 rounded-full w-fit mx-auto mb-4 lg:mb-6">
+                  <Bot className="h-6 w-6 lg:h-8 lg:w-8 text-purple-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">Personal Voice Clone</h3>
+                <h3 className="text-lg lg:text-xl font-semibold mb-3 lg:mb-4">Personal Voice Clone</h3>
                 <p className="text-muted-foreground">
                   Upload 10 minutes of audio to create your personal AI voice that 
                   sounds just like you.
@@ -163,11 +163,11 @@ const Index = () => {
             </Card>
 
             <Card className="card-premium text-center">
-              <CardContent className="p-8">
-                <div className="p-4 bg-blue-100 rounded-full w-fit mx-auto mb-6">
-                  <Headphones className="h-8 w-8 text-blue-600" />
+              <CardContent className="p-6 md:p-4 lg:p-8">
+                <div className="p-3 md:p-2 lg:p-4 bg-blue-100 rounded-full w-fit mx-auto mb-4 lg:mb-6">
+                  <Headphones className="h-6 w-6 lg:h-8 lg:w-8 text-blue-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">Studio Quality</h3>
+                <h3 className="text-lg lg:text-xl font-semibold mb-3 lg:mb-4">Studio Quality</h3>
                 <p className="text-muted-foreground">
                   Professional-grade voice cloning with emotional nuances 
                   and natural speech patterns.
@@ -176,11 +176,11 @@ const Index = () => {
             </Card>
 
             <Card className="card-premium text-center">
-              <CardContent className="p-8">
-                <div className="p-4 bg-green-100 rounded-full w-fit mx-auto mb-6">
-                  <Shield className="h-8 w-8 text-green-600" />
+              <CardContent className="p-6 md:p-4 lg:p-8">
+                <div className="p-3 md:p-2 lg:p-4 bg-green-100 rounded-full w-fit mx-auto mb-4 lg:mb-6">
+                  <Shield className="h-6 w-6 lg:h-8 lg:w-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">Secure & Private</h3>
+                <h3 className="text-lg lg:text-xl font-semibold mb-3 lg:mb-4">Secure & Private</h3>
                 <p className="text-muted-foreground">
                   Your voice data is encrypted and protected with enterprise-level 
                   security protocols.
@@ -263,9 +263,9 @@ const Index = () => {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-4 lg:gap-8">
             <Card className="card-premium">
-              <CardContent className="p-8">
+              <CardContent className="p-6 md:p-4 lg:p-8">
                 <div className="flex items-center mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-4 w-4 text-yellow-500 fill-current" />
@@ -288,7 +288,7 @@ const Index = () => {
             </Card>
 
             <Card className="card-premium">
-              <CardContent className="p-8">
+              <CardContent className="p-6 md:p-4 lg:p-8">
                 <div className="flex items-center mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-4 w-4 text-yellow-500 fill-current" />
@@ -311,7 +311,7 @@ const Index = () => {
             </Card>
 
             <Card className="card-premium">
-              <CardContent className="p-8">
+              <CardContent className="p-6 md:p-4 lg:p-8">
                 <div className="flex items-center mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-4 w-4 text-yellow-500 fill-current" />
